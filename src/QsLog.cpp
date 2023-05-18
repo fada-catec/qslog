@@ -217,11 +217,41 @@ Level Logger::loggingLevel() const
 //! creates the complete log message and passes it to the logger
 void Logger::Helper::writeToLog()
 {
+    QString header;
+    QString tail;
+    switch (level)
+    {
+    case Level::TraceLevel:
+        header = "\033[34m";
+        tail   = "\033[0m";
+        break;
+    case Level::DebugLevel:
+        header = "\033[32m";
+        tail   = "\033[0m";
+        break;
+    case Level::InfoLevel:
+        break;
+    case Level::WarnLevel:
+        header = "\033[35m";
+        tail   = "\033[0m";
+        break;
+    case Level::ErrorLevel:
+    case Level::FatalLevel:
+    case Level::OffLevel:
+        header = "\033[31m";
+        tail   = "\033[0m";
+        break;    
+    default:
+        break;
+    }
+
     const char* const levelName = LevelToText(level);
-    const QString completeMessage(QString("%1 %2 %3")
+    const QString completeMessage(QString("%1%2 %3 %4%5")
+                                  .arg(header)
                                   .arg(levelName)
                                   .arg(QDateTime::currentDateTime().toString(fmtDateTime))
                                   .arg(buffer)
+                                  .arg(tail)
                                   );
 
     Logger::instance().enqueueWrite(completeMessage, level);
