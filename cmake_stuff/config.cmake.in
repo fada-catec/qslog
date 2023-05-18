@@ -1,0 +1,45 @@
+# =========================================================================
+#  @PROJECT_NAME@ CMake configuration file
+#
+#  ** File generated automatically, do not modify **
+#
+#  Usage from an external project:
+#  In your CMakeLists.txt, add these lines:
+#
+#    find_package(@PROJECT_NAME@ REQUIRED)
+#    target_link_libraries(MY_TARGET_NAME ${@PROJECT_NAME@_LIBS})
+#
+#  Where @PROJECT_NAME@ is the name of a specific library
+#
+#  This file will define the following variables:
+#     - @PROJECT_NAME@_FOUND         : If library has been found.
+#     - @PROJECT_NAME@_INCLUDE_DIRS  : The include directories for this library.
+#     - @PROJECT_NAME@_LIBS          : The list of libraries to links against.
+#     - @PROJECT_NAME@_LIB_DIR       : The directory where lib files are.
+#     - @PROJECT_NAME@_FIND_NAME     : The name of this library.
+#     - @PROJECT_NAME@_VERSION       : The version of this gu build. Example: "1.2.3"
+#     - @PROJECT_NAME@_VERSION_MAJOR : Major version part of VERSION. Example: "1"
+#     - @PROJECT_NAME@_VERSION_MINOR : Minor version part of VERSION. Example: "2"
+#     - @PROJECT_NAME@_VERSION_PATCH : Patch version part of VERSION. Example: "3"
+#
+# =========================================================================
+
+set(@PROJECT_NAME@_FOUND         "YES")
+set(@PROJECT_NAME@_LIBS          "@PROJECT_NAME@")
+set(@PROJECT_NAME@_LIB_DIR       "@CMAKE_LIB_DIRS_CONFIGCMAKE@")
+set(@PROJECT_NAME@_INCLUDE_DIRS  "@CMAKE_INC_DIRS_CONFIGCMAKE@" "@CMAKE_INC_DIRS_CONFIGCMAKE@/@PROJECT_NAME@")
+set(@PROJECT_NAME@_FIND_NAME     "@PROJECT_NAME@")
+set(@PROJECT_NAME@_VERSION       "@VERSION@")
+set(@PROJECT_NAME@_VERSION_MAJOR "@VERSION_MAJOR@")
+set(@PROJECT_NAME@_VERSION_MINOR "@VERSION_MINOR@")
+set(@PROJECT_NAME@_VERSION_PATCH "@VERSION_PATCH@")
+
+include(FindPackageHandleStandardArgs)
+find_package_handle_standard_args(@PROJECT_NAME@
+   REQUIRED_VARS  @PROJECT_NAME@_LIBS
+   VERSION_VAR    @PROJECT_NAME@_VERSION)
+
+include_directories(SYSTEM "@CMAKE_INC_DIRS_CONFIGCMAKE@")
+include_directories(SYSTEM "@CMAKE_INC_DIRS_CONFIGCMAKE@/@PROJECT_NAME@")
+
+link_directories("@CMAKE_LIB_DIRS_CONFIGCMAKE@")
